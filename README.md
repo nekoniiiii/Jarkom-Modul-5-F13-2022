@@ -213,3 +213,84 @@ route add -net 10.35.0.24 netmask 255.255.255.248 gw 10.35.0.6
 route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.35.0.1
 ```
 
+### (D) Tugas berikutnya adalah memberikan ip pada subnet Forger, Desmond, Blackbell, dan Briar secara dinamis menggunakan bantuan DHCP server. Kemudian kalian ingat bahwa kalian harus setting DHCP Relay pada router yang menghubungkannya.
+
+- [Forger, Desmond, Blackbell, Briar]
+Edit network config masing-masing dan masukkan :
+```
+auto eth0
+iface eth0 inet dhcp
+```
+
+- [WISE]
+Pertama, lakukan ```apt install isc-dhcp-server```, kemudian edit file ```/etc/dhcp/dhcpd.conf```, isikan file tersebut dengan berikut.
+
+```
+# Ke A2 (Forger)
+subnet 10.35.0.128 netmask 255.255.255.128 {
+    range 10.35.0.130 10.35.0.254;
+    option routers 10.35.0.129;
+    option broadcast-address 10.35.0.255;
+    option domain-name-servers 10.35.0.19; # IP Eden
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Ke A3 (Desmond)
+subnet 10.35.4.0 netmask 255.255.252.0 {
+    range 10.35.4.2 10.35.7.255;
+    option routers 10.35.4.1;
+    option broadcast-address 10.35.5.255;
+    option domain-name-servers 10.35.0.19; # IP Eden
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Ke A6 (Blackbell)
+subnet 10.35.2.0 netmask 255.255.254.0 {
+    range 10.35.2.2 10.35.3.255;
+    option routers 10.35.2.1;
+    option broadcast-address 10.35.3.255;
+    option domain-name-servers 10.35.0.19;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Ke A7 (Briar)
+subnet 10.35.1.0 netmask 255.255.255.0 {
+    range 10.35.1.2 10.35.1.255;
+    option routers 10.35.1.1;
+    option broadcast-address 10.35.1.255;
+    option domain-name-servers 10.35.0.19;
+    default-lease-time 600;
+    max-lease-time 7200;
+}
+
+# Ke A1
+subnet 10.35.0.16 netmask 255.255.255.248 {
+}
+```
+
+- [Strix]
+Lanjut ke Strix, lakukan ```apt-get update``` serta ```apt-get -y install isc-dhcp-relay```.
+Setelah itu, buka ```/etc/default/isc-dhcp-relay``` dan sesuaikan bagian-bagian di file dengan berikut.
+```
+SERVERS="10.35.0.18"			// address dhcp server
+
+INTERFACES="eth1 eth2"
+
+OPTIONS=""
+```
+Kemudian, ```cp /etc/default/isc-dhcp-relay isc-dhcp-relay```, dan restart isc-dhcp-relay.
+
+- [Ostania, Westalis]
+Untuk Ostania dan Westalis, langkah mirip dengan Strix barusan namun terdapat perbedaan di config ```/etc/default/isc-dhcp-relay```. Kembali sesuaikan bagian-bagian di file dengan berikut.
+```
+SERVERS="10.35.0.18"			// address dhcp server
+
+INTERFACES="eth0 eth1 eth2 eth3"
+
+OPTIONS=""
+```
+
+Gunakan ```cp /etc/default/isc-dhcp-relay isc-dhcp-relay```, dan restart isc-dhcp-relay.
