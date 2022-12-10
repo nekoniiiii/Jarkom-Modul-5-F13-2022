@@ -188,3 +188,28 @@ address 10.35.1.2
 netmask 255.255.255.0
 gateway 10.35.1.1
 ```
+
+### (C) Anya, putri pertama Loid, juga berpesan kepada anda agar melakukan Routing agar setiap perangkat pada jaringan tersebut dapat terhubung.
+### Routing
+
+- [Ostania]
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.35.0.5
+```
+
+- [Strix]
+```
+route add -net 10.35.0.16 netmask 255.255.255.248 gw 10.35.0.2 
+route add -net 10.35.0.128 netmask 255.255.255.128 gw 10.35.0.2 
+route add -net 10.35.4.0 netmask 255.255.252.0 gw 10.35.0.2 
+
+route add -net 10.35.2.0 netmask 255.255.254.0 gw 10.35.0.6 
+route add -net 10.35.1.0 netmask 255.255.255.0 gw 10.35.0.6 
+route add -net 10.35.0.24 netmask 255.255.255.248 gw 10.35.0.6 
+```
+
+- [Westalis]
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.35.0.1 // A4
+```
+
