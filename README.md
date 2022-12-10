@@ -281,7 +281,7 @@ INTERFACES="eth1 eth2"
 
 OPTIONS=""
 ```
-Kemudian, ```cp /etc/default/isc-dhcp-relay isc-dhcp-relay```, dan restart isc-dhcp-relay.
+Restart isc-dhcp-relay.
 
 - [Ostania, Westalis]
 Untuk Ostania dan Westalis, langkah mirip dengan Strix barusan namun terdapat perbedaan di config ```/etc/default/isc-dhcp-relay```. Kembali sesuaikan bagian-bagian di file dengan berikut.
@@ -293,4 +293,4 @@ INTERFACES="eth0 eth1 eth2 eth3"
 OPTIONS=""
 ```
 
-Gunakan ```cp /etc/default/isc-dhcp-relay isc-dhcp-relay```, dan restart isc-dhcp-relay.
+Restart isc-dhcp-relay.
