@@ -294,3 +294,17 @@ OPTIONS=""
 ```
 
 Restart isc-dhcp-relay.
+
+
+### 1. Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Strix menggunakan iptables, tetapi Loid tidak ingin menggunakan MASQUERADE.
+- Pada Strix, edit konfigurasi sebagai berikut
+```
+auto eth0
+iface eth0 inet static
+address 192.168.122.2
+netmask 255.255.255.252
+```
+- Kemudian jalankan command berikut
+```
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT -s 10.35.0.0/21 --to-source 192.168.122.2
+```
