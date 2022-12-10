@@ -210,6 +210,6 @@ route add -net 10.35.0.24 netmask 255.255.255.248 gw 10.35.0.6
 
 - [Westalis]
 ```
-route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.35.0.1 // A4
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.35.0.1
 ```
 
