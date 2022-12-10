@@ -308,3 +308,11 @@ netmask 255.255.255.252
 ```
 iptables -t nat -A POSTROUTING -o eth0 -j SNAT -s 10.35.0.0/21 --to-source 192.168.122.2
 ```
+
+### 2. Kalian diminta untuk melakukan drop semua TCP dan UDP dari luar Topologi kalian pada server yang merupakan DHCP Server demi menjaga keamanan.
+- Pada Strix, jalankan command berikut
+```
+iptables -A FORWARD -p tcp -d 10.35.0.18 -i eth0 -j DROP # drop semua TCP
+iptables -A FORWARD -p udp -d 10.35.0.18 -i eth0 -j DROP # drop semua UDP
+```
+
